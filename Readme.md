@@ -34,6 +34,16 @@ The same architecture can be extended for:
 
 ---
 
+## Why This Project?
+
+This project was built to practice real world backend concepts such as:
+- Database modeling
+- API validation
+- Status history tracking
+- Clean separation of concerns
+
+---
+
 ##  Tech Used
 
 * **Python**
