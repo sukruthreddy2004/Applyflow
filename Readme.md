@@ -37,11 +37,11 @@ The same architecture can be extended for:
 ##  Tech Stack
 
 * **Python**
-* **FastAPI** – REST API framework
-* **PostgreSQL** – Relational database
-* **SQLAlchemy ORM** – Database models & queries
-* **Pydantic** – Data validation & schemas
-* **Uvicorn** – ASGI server
+* **FastAPI** : REST API framework
+* **PostgreSQL** : Relational database
+* **SQLAlchemy ORM** : Database models & queries
+* **Pydantic** : Data validation & schemas
+* **Uvicorn** : ASGI server
 
 ---
 
@@ -49,13 +49,13 @@ The same architecture can be extended for:
 
 ```text
 applyflow-backend/
-│── main.py        # API routes
-│── database.py    # DB engine & session
-│── models.py      # SQLAlchemy models
-│── schemas.py     # Pydantic schemas
-│── deps.py        # DB dependency
-│── .gitignore     # Ignored files
-│── README.md      # Project documentation
+│- main.py        # API routes
+│- database.py    # DB engine & session
+│- models.py      # SQLAlchemy models
+│- schemas.py     # Pydantic schemas
+│- deps.py        # DB dependency
+│- .gitignore     # Ignored files
+│- README.md      # Project documentation
 ```
 
 ---
@@ -113,8 +113,8 @@ http://127.0.0.1:8000
 
 FastAPI provides built-in interactive docs:
 
-* Swagger UI → [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-* OpenAPI JSON → [http://127.0.0.1:8000/openapi.json](http://127.0.0.1:8000/openapi.json)
+* Swagger UI - [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+* OpenAPI JSON - [http://127.0.0.1:8000/openapi.json](http://127.0.0.1:8000/openapi.json)
 
 ---
 
