@@ -10,10 +10,10 @@ This project is built with **FastAPI + PostgreSQL + SQLAlchemy** and follows cle
 
 * Create job applications
 * List all applications with optional status filtering
-* Update application status (applied → interview → offer → rejected)
+* Update application status (applied -> interview -> offer -> rejected)
 * Automatically track status change history
 * PostgreSQL database integration
-* Auto-generated Swagger API documentation
+* Auto generated Swagger API documentation
 * Clean project structure (models, schemas, deps)
 
 ---
