@@ -66,7 +66,7 @@ applyflow-backend/
 
 ```bash
 git clone https://github.com/sukruthreddy2004/ApplyFlow.git
-cd applyflow-backend
+cd applyflow
 ```
 
 ### 2️ Create Virtual Environment
