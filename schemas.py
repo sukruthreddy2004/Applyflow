@@ -1,29 +1,43 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
+from typing import Optional, List
 from datetime import datetime
-from typing import Optional
-from enum import Enum
-
-#  ENUM 
-class ApplicationStatus(str, Enum):
-    applied = "applied"
-    interview = "interview"
-    rejected = "rejected"
-    offer = "offer"
 
 
-#  CREATE 
+# USER SCHEMAS
+
+
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class UserResponse(BaseModel):
+    id: int
+    email: EmailStr
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# APPLICATION SCHEMAS
+
+
 class ApplicationCreate(BaseModel):
     company: str
     position: str
-    status: ApplicationStatus = ApplicationStatus.applied
+    status: str
 
 
-#  RESPONSE 
+class ApplicationStatusUpdate(BaseModel):
+    status: str
+
+
 class ApplicationResponse(BaseModel):
     id: int
     company: str
     position: str
-    status: ApplicationStatus
+    status: str
     created_at: datetime
     updated_at: datetime
 
@@ -31,20 +45,26 @@ class ApplicationResponse(BaseModel):
         from_attributes = True
 
 
-#  UPDATE
-class ApplicationStatusUpdate(BaseModel):
-    status: ApplicationStatus
+# STATUS HISTORY SCHEMAS
 
 
-#  HISTORY RESPONSE 
 class ApplicationStatusHistoryResponse(BaseModel):
     id: int
-    application_id: int
-    old_status: ApplicationStatus
-    new_status: ApplicationStatus
+    old_status: str
+    new_status: str
     changed_at: datetime
-    created_at: datetime
-    updated_at: datetime
 
     class Config:
         from_attributes = True
+
+# AUTH SCHEMAS
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class LoginResponse(BaseModel):
+    message: str
+    user_id: int
+    email: EmailStr
