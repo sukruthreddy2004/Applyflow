@@ -1,158 +1,156 @@
-# ApplyFlow – Job Application Tracking Backend
+ApplyFlow
 
-ApplyFlow is a backend API built with FastAPI, PostgreSQL, and SQLAlchemy to help users track job applications, manage statuses, and maintain application history, all secured with JWT authentication.
+ApplyFlow is a backend system for tracking job applications, their statuses, and full status history.
+It is built using real world backend practices with secure authentication and relational data modeling.
 
-This project demonstrates real world backend engineering concepts such as authentication, relational data modeling, password security, and RESTful API design.
+==================================================
 
- # Key Features
-🔐 Authentication & Security
+TECH STACK
 
-User registration with hashed passwords (bcrypt)
+- Python
+- FastAPI
+- PostgreSQL
+- SQLAlchemy
+- JWT Authentication
+- Passlib (bcrypt)
+- Swagger / OpenAPI
 
-Secure login using JWT (JSON Web Tokens)
+==================================================
 
-Token authentication for protected routes
+FEATURES
 
-# Job Application Management
+USER AUTHENTICATION
+- User registration with hashed passwords
+- Secure login using JWT
+- Token authentication
 
-Create job applications linked to users
+APPLICATION MANAGEMENT
+- Create job applications
+- Associate applications with users
+- Store company, position, and current status
 
-Track application status (applied, interview, rejected, etc.)
+STATUS TRACKING
+- Update application status
+- Automatically log every status change
+- Maintain complete history
 
-Update application status with full status history tracking
+HISTORY LOG
+- Old status -> new status
+- Timestamped records
+- Per application audit trail
 
-# Relational Database Design
+==================================================
 
-One-to-many relationship:
+PROJECT STRUCTURE
 
-User → Applications
-
-Application → Status History
-
-PostgreSQL with SQLAlchemy ORM
-
-Automatic timestamps (created_at, updated_at)
-
-# Developer Friendly
-
-Auto generated Swagger UI (/docs)
-
-Clean request & response schemas using Pydantic
-
-Structured project layout (models, schemas, auth, deps)
-
-# Tech Stack
-
-Backend Framework: FastAPI
-
-Database: PostgreSQL
-
-ORM: SQLAlchemy
-
-Authentication: JWT (python-jose)
-
-Password Hashing: passlib (bcrypt)
-
-API Docs: Swagger / OpenAPI
-
-# Project Structure
 applyflow-backend/
-│
-|- main.py          # API routes
-|- models.py        # Database models
-|- schemas.py       # Pydantic schemas
-|- auth.py          # JWT authentication logic
-|- database.py      # DB connection setup
-|- deps.py          # Dependency injection
+|
+|- main.py             FastAPI routes
+|- models.py           SQLAlchemy models
+|- schemas.py          Pydantic schemas
+|- database.py         Database configuration
+|- deps.py             Database dependencies
+|- auth.py             JWT authentication logic
+|- requirements.txt    Project dependencies
 |- README.md
-|- venv/
 
-# Setup & Installation
-1️⃣ Clone the repository
-git clone https://github.com/sukruthreddy2004/ApplyFlow.git
+==================================================
+
+SETUP INSTRUCTIONS
+
+1. Clone repository
+
+git clone https://github.com/sukruthreddy2004/applyflow-backend.git
 cd applyflow-backend
 
-2️⃣ Create virtual environment
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+2. Create virtual environment
 
-3️⃣ Install dependencies
+python -m venv venv
+
+Windows:
+venv\Scripts\activate
+
+macOS / Linux:
+source venv/bin/activate
+
+3. Install dependencies
+
 pip install -r requirements.txt
 
-4️⃣ Configure Database
+4. Configure database
 
-Create a PostgreSQL database and update database.py:
+Update database.py with your PostgreSQL credentials:
 
-DATABASE_URL = "postgresql+psycopg://username:password@localhost/applyflow"
+DATABASE_URL = postgresql+psycopg://username:password@localhost/applyflow
 
-5️⃣ Run the server
+5. Run server
+
 uvicorn main:app --reload
 
-# API Documentation
+Server will run at:
+http://127.0.0.1:8000
 
-Once running, open:
+==================================================
 
- http://127.0.0.1:8000/docs
+API DOCUMENTATION
 
-Swagger UI allows you to:
+Swagger UI:
+http://127.0.0.1:8000/docs
 
-Register users
+==================================================
 
-Login and get JWT token
+AUTHENTICATION FLOW
 
-Create & manage applications
+1. Register user using /users/register
+2. Login using /users/login
+3. Receive JWT token
+4. Send token in headers for protected routes
 
-View application status history
+Authorization: Bearer <token>
 
-# Authentication Flow (JWT)
+==================================================
 
-Register User
+API ENDPOINTS
 
+USERS
 POST /users/register
-
-Login User
-
 POST /users/login
 
-Returns JWT token
+APPLICATIONS
+POST /applications
+GET /applications
+PATCH /applications/{application_id}
 
-Authorized Requests
+STATUS HISTORY
+GET /applications/{application_id}/history
 
-Send token in header:
+==================================================
 
-Authorization: Bearer <your_token>
+PURPOSE
 
-# Why This Project Matters
+ApplyFlow demonstrates real backend engineering skills:
+- Secure authentication
+- Clean API design
+- Relational data modeling
+- Status history tracking
+- Production architecture
 
-This project demonstrates:
 
-Real authentication 
+==================================================
 
-Secure password handling
+FUTURE IMPROVEMENTS
 
-Proper database relationships
+- Role access control
+- Pagination and filtering
+- Email notifications
+- Docker support
+- Cloud deployment
 
-Backend architecture used in real companies
+==================================================
 
-Debugging 
-
-# Future Improvements
-
-Role based access control
-
-Refresh tokens
-
-Pagination & filtering
-
-Frontend integration (React / Next.js)
-
-Deployment (Railway / Render / AWS)
-
-# Author
+AUTHOR
 
 Sai Sukruth Reddy
-Backend Developer (FastAPI, Python, PostgreSQL)
+Backend Developer (Python, FastAPI, PostgreSQL)
+GitHub: https://github.com/sukruthreddy2004
 
-##  Final Note
-
-This project is built to demonstrate **real backend engineering skills**. It focuses on clean architecture, database integrity, and practical workflows used in production systems.
