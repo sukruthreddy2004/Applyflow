@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import Optional, List
 
 from passlib.context import CryptContext
-
+from auth import create_access_token
 from database import engine, Base
 from deps import get_db
 from models import User, Application, ApplicationStatusHistory
@@ -16,6 +16,8 @@ from schemas import (
     ApplicationStatusUpdate,
     ApplicationStatusHistoryResponse,
 )
+
+
 
 
 app = FastAPI()
@@ -88,23 +90,23 @@ def login_user(
         .first()
     )
 
-    if not user:
+    if not user or not verify_password(credentials.password, user.password_hash):
         raise HTTPException(
             status_code=401,
             detail="Invalid email or password",
         )
 
-    if not verify_password(credentials.password, user.password_hash):
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid email or password",
-        )
+    access_token = create_access_token(
+        data={"user_id": user.id}
+    )
 
     return {
         "message": "Login successful",
         "user_id": user.id,
         "email": user.email,
+        "access_token": access_token,
     }
+
 
 
 
@@ -116,10 +118,16 @@ def create_application(
     application: ApplicationCreate,
     db: Session = Depends(get_db),
 ):
+    user = db.query(User).filter(User.id == application.user_id).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
     db_app = Application(
         company=application.company,
         position=application.position,
         status=application.status,
+        user_id=application.user_id,
     )
 
     db.add(db_app)

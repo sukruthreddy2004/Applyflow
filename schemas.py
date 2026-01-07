@@ -27,6 +27,7 @@ class ApplicationCreate(BaseModel):
     company: str
     position: str
     status: str
+    user_id: int
 
 
 class ApplicationStatusUpdate(BaseModel):
@@ -68,3 +69,5 @@ class LoginResponse(BaseModel):
     message: str
     user_id: int
     email: EmailStr
+    access_token: str
+
