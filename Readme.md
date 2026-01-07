@@ -1,185 +1,157 @@
-# ApplyFlow Backend 
+# ApplyFlow – Job Application Tracking Backend
 
-ApplyFlow is a **backend system to track job applications and their status history**. It is designed to simulate a real-world hiring tracker used by candidates or recruiters to manage applications, status changes, and timelines.
+ApplyFlow is a backend API built with FastAPI, PostgreSQL, and SQLAlchemy to help users track job applications, manage statuses, and maintain application history, all secured with JWT authentication.
 
-This project is built with **FastAPI + PostgreSQL + SQLAlchemy** and follows clean backend practices such as proper schemas, models, history tracking, and API documentation.
+This project demonstrates real world backend engineering concepts such as authentication, relational data modeling, password security, and RESTful API design.
 
----
+ # Key Features
+🔐 Authentication & Security
 
-##  Features
+User registration with hashed passwords (bcrypt)
 
-* Create job applications
-* List all applications with optional status filtering
-* Update application status (applied -> interview -> offer -> rejected)
-* Automatically track status change history
-* PostgreSQL database integration
-* Auto generated Swagger API documentation
-* Clean project structure (models, schemas, deps)
+Secure login using JWT (JSON Web Tokens)
 
----
+Token authentication for protected routes
 
-##  Real-World Use Case
+# Job Application Management
 
-This backend mimics how job seekers track applications across companies:
+Create job applications linked to users
 
-* Know where you applied
-* Track progress over time
-* Maintain a clean history of status changes
+Track application status (applied, interview, rejected, etc.)
 
-The same architecture can be extended for:
+Update application status with full status history tracking
 
-* ATS systems
-* CRM pipelines
-* Workflow tracking tools
+# Relational Database Design
 
----
+One-to-many relationship:
 
-## Why This Project?
+User → Applications
 
-This project was built to practice real world backend concepts such as:
-- Database modeling
-- API validation
-- Status history tracking
-- Clean separation of concerns
+Application → Status History
 
----
+PostgreSQL with SQLAlchemy ORM
 
-##  Tech Used
+Automatic timestamps (created_at, updated_at)
 
-* **Python**
-* **FastAPI** : REST API framework
-* **PostgreSQL** : Relational database
-* **SQLAlchemy ORM** : Database models & queries
-* **Pydantic** : Data validation & schemas
-* **Uvicorn** : ASGI server
+# Developer Friendly
 
----
+Auto generated Swagger UI (/docs)
 
-##  Project Structure
+Clean request & response schemas using Pydantic
 
-```text
+Structured project layout (models, schemas, auth, deps)
+
+# Tech Stack
+
+Backend Framework: FastAPI
+
+Database: PostgreSQL
+
+ORM: SQLAlchemy
+
+Authentication: JWT (python-jose)
+
+Password Hashing: passlib (bcrypt)
+
+API Docs: Swagger / OpenAPI
+
+# Project Structure
 applyflow-backend/
-│- main.py        # API routes
-│- database.py    # DB engine & session
-│- models.py      # SQLAlchemy models
-│- schemas.py     # Pydantic schemas
-│- deps.py        # DB dependency
-│- .gitignore     # Ignored files
-│- README.md      # Project documentation
-```
+│
+|- main.py          # API routes
+|- models.py        # Database models
+|- schemas.py       # Pydantic schemas
+|- auth.py          # JWT authentication logic
+|- database.py      # DB connection setup
+|- deps.py          # Dependency injection
+|- README.md
+|- venv/
 
----
-
-##  Getting Started
-
-### 1️ Clone the Repository
-
-```bash
+# Setup & Installation
+1️⃣ Clone the repository
 git clone https://github.com/sukruthreddy2004/ApplyFlow.git
-cd applyflow
-```
+cd applyflow-backend
 
-### 2️ Create Virtual Environment
-
-```bash
+2️⃣ Create virtual environment
 python -m venv venv
-source venv/bin/activate   # Linux / Mac
-venv\Scripts\activate      # Windows
-```
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-### 3️ Install Dependencies
+3️⃣ Install dependencies
+pip install -r requirements.txt
 
-```bash
-pip install fastapi uvicorn sqlalchemy psycopg[binary] pydantic
-```
+4️⃣ Configure Database
 
-### 4️ Configure Database
+Create a PostgreSQL database and update database.py:
 
-Update `DATABASE_URL` in `database.py`:
+DATABASE_URL = "postgresql+psycopg://username:password@localhost/applyflow"
 
-```python
-DATABASE_URL = "postgresql+psycopg://username:password@localhost:5432/applyflow"
-```
-
-Make sure PostgreSQL is running.
-
----
-
-##  Running the Server
-
-```bash
+5️⃣ Run the server
 uvicorn main:app --reload
-```
 
-Server will run at:
+# API Documentation
 
-```text
-http://127.0.0.1:8000
-```
+Once running, open:
 
----
+ http://127.0.0.1:8000/docs
 
-##  API Documentation (Swagger)
+Swagger UI allows you to:
 
-FastAPI provides built-in interactive docs:
+Register users
 
-* Swagger UI - [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-* OpenAPI JSON - [http://127.0.0.1:8000/openapi.json](http://127.0.0.1:8000/openapi.json)
+Login and get JWT token
 
----
+Create & manage applications
 
-##  API Endpoints
+View application status history
 
-### Health Check
+# Authentication Flow (JWT)
 
-```http
-GET /
-```
+Register User
 
-### Create Application
+POST /users/register
 
-```http
-POST /applications
-```
+Login User
 
-### List Applications
+POST /users/login
 
-```http
-GET /applications?status=interview
-```
+Returns JWT token
 
-### Update Application Status
+Authorized Requests
 
-```http
-PATCH /applications/{application_id}
-```
+Send token in header:
 
-### Get Status History
+Authorization: Bearer <your_token>
 
-```http
-GET /applications/{application_id}/history
-```
+# Why This Project Matters
 
----
+This project demonstrates:
 
-##  Future Improvements
+Real authentication 
 
-* Authentication (JWT)
-* Pagination & sorting
-* Docker support
-* Cloud deployment
-* Frontend integration
+Secure password handling
 
----
+Proper database relationships
 
-##  Author
+Backend architecture used in real companies
 
-**Sai Sukruth Reddy**
-Backend Developer (Python / FastAPI)
+Debugging 
 
-GitHub: [https://github.com/sukruthreddy2004](https://github.com/sukruthreddy2004)
+# Future Improvements
 
----
+Role based access control
+
+Refresh tokens
+
+Pagination & filtering
+
+Frontend integration (React / Next.js)
+
+Deployment (Railway / Render / AWS)
+
+# Author
+
+Sai Sukruth Reddy
+Backend Developer (FastAPI, Python, PostgreSQL)
 
 ##  Final Note
 
