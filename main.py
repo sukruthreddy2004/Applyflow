@@ -1,13 +1,14 @@
 from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import Optional, List
+from fastapi.security import OAuth2PasswordRequestForm
 
 from passlib.context import CryptContext
-from auth import create_access_token
+from auth import create_access_token, get_current_user
 from database import engine, Base
 from deps import get_db
 from models import User, Application, ApplicationStatusHistory
-from schemas import UserLogin, LoginResponse
+from schemas import UserLogin, LoginResponse, PaginatedApplicationsResponse
 from schemas import (
     UserCreate,
     UserResponse,
@@ -78,19 +79,16 @@ def register_user(
     db.refresh(new_user)
 
     return new_user
+# USER LOGIN
 
 @app.post("/users/login", response_model=LoginResponse)
 def login_user(
-    credentials: UserLogin,
+    form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db),
 ):
-    user = (
-        db.query(User)
-        .filter(User.email == credentials.email)
-        .first()
-    )
+    user = db.query(User).filter(User.email == form_data.username).first()
 
-    if not user or not verify_password(credentials.password, user.password_hash):
+    if not user or not verify_password(form_data.password, user.password_hash):
         raise HTTPException(
             status_code=401,
             detail="Invalid email or password",
@@ -117,17 +115,14 @@ def login_user(
 def create_application(
     application: ApplicationCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
-    user = db.query(User).filter(User.id == application.user_id).first()
-
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
+    
     db_app = Application(
         company=application.company,
         position=application.position,
         status=application.status,
-        user_id=application.user_id,
+        user_id=current_user.id,
     )
 
     db.add(db_app)
@@ -139,18 +134,30 @@ def create_application(
 
 # LIST APPLICATIONS
 
-
-@app.get("/applications", response_model=List[ApplicationResponse])
+@app.get("/applications", response_model=PaginatedApplicationsResponse)
 def list_applications(
     status: Optional[str] = Query(default=None),
+    page: int = Query(1, ge=1),
+    limit: int = Query(10, ge=1, le=50),
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
-    query = db.query(Application)
+    query = db.query(Application).filter(
+        Application.user_id == current_user.id
+    )
 
     if status:
         query = query.filter(Application.status == status)
 
-    return query.all()
+    total = query.count()
+    items = query.offset((page - 1) * limit).limit(limit).all()
+
+    return {
+        "total": total,
+        "page": page,
+        "limit": limit,
+        "items": items,
+    }
 
 
 # UPDATE APPLICATION STATUS
@@ -164,15 +171,19 @@ def update_application_status(
     application_id: int,
     payload: ApplicationStatusUpdate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     app_record = (
-        db.query(Application)
-        .filter(Application.id == application_id)
-        .first()
+    db.query(Application)
+    .filter(
+        Application.id == application_id,
+        Application.user_id == current_user.id, 
     )
+    .first()
+)
 
     if not app_record:
-        raise HTTPException(status_code=404, detail="Application not found")
+        raise HTTPException(status_code=404, detail="Application not found or access denied")
 
     old_status = app_record.status
     new_status = payload.status

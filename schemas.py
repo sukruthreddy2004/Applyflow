@@ -27,7 +27,7 @@ class ApplicationCreate(BaseModel):
     company: str
     position: str
     status: str
-    user_id: int
+    
 
 
 class ApplicationStatusUpdate(BaseModel):
@@ -44,6 +44,12 @@ class ApplicationResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class PaginatedApplicationsResponse(BaseModel):
+    total: int
+    page: int
+    limit: int
+    items: List[ApplicationResponse]
 
 
 # STATUS HISTORY SCHEMAS

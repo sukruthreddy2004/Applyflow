@@ -3,7 +3,7 @@ ApplyFlow
 ApplyFlow is a backend system for tracking job applications, their statuses, and full status history.
 It is built using real world backend practices with secure authentication and relational data modeling.
 
-==================================================
+---
 
 TECH STACK
 
@@ -15,7 +15,7 @@ TECH STACK
 - Passlib (bcrypt)
 - Swagger / OpenAPI
 
-==================================================
+---
 
 FEATURES
 
@@ -39,7 +39,7 @@ HISTORY LOG
 - Timestamped records
 - Per application audit trail
 
-==================================================
+---
 
 PROJECT STRUCTURE
 
@@ -54,7 +54,7 @@ applyflow-backend/
 |- requirements.txt    Project dependencies
 |- README.md
 
-==================================================
+---
 
 SETUP INSTRUCTIONS
 
@@ -90,14 +90,14 @@ uvicorn main:app --reload
 Server will run at:
 http://127.0.0.1:8000
 
-==================================================
+---
 
 API DOCUMENTATION
 
 Swagger UI:
 http://127.0.0.1:8000/docs
 
-==================================================
+---
 
 AUTHENTICATION FLOW
 
@@ -108,7 +108,7 @@ AUTHENTICATION FLOW
 
 Authorization: Bearer <token>
 
-==================================================
+---
 
 API ENDPOINTS
 
@@ -124,7 +124,7 @@ PATCH /applications/{application_id}
 STATUS HISTORY
 GET /applications/{application_id}/history
 
-==================================================
+---
 
 PURPOSE
 
@@ -136,7 +136,7 @@ ApplyFlow demonstrates real backend engineering skills:
 - Production architecture
 
 
-==================================================
+---
 
 FUTURE IMPROVEMENTS
 
@@ -146,7 +146,7 @@ FUTURE IMPROVEMENTS
 - Docker support
 - Cloud deployment
 
-==================================================
+---
 
 AUTHOR
 
