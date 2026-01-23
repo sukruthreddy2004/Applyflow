@@ -1,11 +1,11 @@
-#ApplyFlow
+# ApplyFlow
 
 ApplyFlow is a backend system for tracking job applications, their statuses, and full status history.
 It is built using real world backend practices with secure authentication and relational data modeling.
 
 ---
 
-#TECH STACK
+# TECH STACK
 
 - Python
 - FastAPI
@@ -14,63 +14,87 @@ It is built using real world backend practices with secure authentication and re
 - JWT Authentication
 - Passlib (bcrypt)
 - Swagger / OpenAPI
+- OAuth2 password flow
 
 ---
 
-#FEATURES
+# FEATURES
 
-##USER AUTHENTICATION
+## USER AUTHENTICATION
 - User registration with hashed passwords
 - Secure login using JWT
 - Token authentication
 
-##APPLICATION MANAGEMENT
+## APPLICATION MANAGEMENT
 - Create job applications
 - Associate applications with users
 - Store company, position, and current status
 
-##STATUS TRACKING
+## STATUS TRACKING
 - Update application status
 - Automatically log every status change
 - Maintain complete history
 
-##HISTORY LOG
+## HISTORY LOG
 - Old status -> new status
 - Timestamped records
 - Per application audit trail
+  
+## Pagination
+- Applications are fetched using limit and ooset
+- designed to handle large datasets
+- prevents over fetching and avoids bottlenecks
+
+--- 
+
+# Security and Ownership
+- All protected routes require JWT authentication.
+- Each application is linked to a specific user.
+- Users cannot access or modify other user's data.
+- Authorization is enforced at the database query level.
 
 ---
 
-#PROJECT STRUCTURE
+# PROJECT STRUCTURE
 
 applyflow-backend/
 |
-|- main.py             FastAPI routes
-|- models.py           SQLAlchemy models
-|- schemas.py          Pydantic schemas
-|- database.py         Database configuration
-|- deps.py             Database dependencies
-|- auth.py             JWT authentication logic
-|- requirements.txt    Project dependencies
+
+|- main.py             #FastAPI routes
+
+|- models.py           #SQLAlchemy models
+
+|- schemas.py          #Pydantic schemas
+
+|- database.py         #Database configuration
+
+|- deps.py             #Database dependencies
+
+|- auth.py             #JWT authentication logic
+
+|- requirements.txt    #Project dependencies
+
 |- README.md
 
 ---
 
-#SETUP INSTRUCTIONS
+# SETUP INSTRUCTIONS
 
 1. Clone repository
 
-git clone https://github.com/sukruthreddy2004/applyflow-backend.git
-cd applyflow-backend
+## git clone https://github.com/sukruthreddy2004/applyflow-backend.git
+- cd applyflow-backend
 
 2. Create virtual environment
 
 - python -m venv venv
 
-##Windows:
+## Windows:
+
 - venv\Scripts\activate
 
-##macOS / Linux:
+## macOS / Linux:
+
 - source venv/bin/activate
 
 3. Install dependencies
@@ -92,14 +116,14 @@ http://127.0.0.1:8000
 
 ---
 
-##API DOCUMENTATION
+## API DOCUMENTATION
 
 Swagger UI:
 http://127.0.0.1:8000/docs
 
 ---
 
-#AUTHENTICATION FLOW
+# AUTHENTICATION FLOW
 
 1. Register user using /users/register
 2. Login using /users/login
@@ -110,18 +134,24 @@ Authorization: Bearer <token>
 
 ---
 
-#API ENDPOINTS
+# API ENDPOINTS
 
 ##USERS
-POST /users/register
-POST /users/login
 
-##APPLICATIONS
+- POST /users/register
+
+- POST /users/login
+
+## APPLICATIONS
+
 POST /applications
+
 GET /applications
+
 PATCH /applications/{application_id}
 
 ##STATUS HISTORY
+
 GET /applications/{application_id}/history
 
 ---
@@ -129,6 +159,7 @@ GET /applications/{application_id}/history
 #PURPOSE
 
 ApplyFlow demonstrates real backend engineering skills:
+
 - Secure authentication
 - Clean API design
 - Relational data modeling
@@ -138,7 +169,7 @@ ApplyFlow demonstrates real backend engineering skills:
 
 ---
 
-#FUTURE IMPROVEMENTS
+# FUTURE IMPROVEMENTS
 
 - Email notifications
 - Docker support
@@ -146,9 +177,11 @@ ApplyFlow demonstrates real backend engineering skills:
 
 ---
 
-#AUTHOR
+# AUTHOR
 
 Sai Sukruth Reddy
+
 Backend Developer (Python, FastAPI, PostgreSQL)
+
 GitHub: https://github.com/sukruthreddy2004
 
