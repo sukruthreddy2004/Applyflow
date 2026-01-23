@@ -60,19 +60,19 @@ It is built using real world backend practices with secure authentication and re
 applyflow-backend/
 |
 
-|- main.py             #FastAPI routes
+|- main.py                #FastAPI routes
 
-|- models.py           #SQLAlchemy models
+|- models.py              #SQLAlchemy models
 
-|- schemas.py          #Pydantic schemas
+|- schemas.py             #Pydantic schemas
 
-|- database.py         #Database configuration
+|- database.py            #Database configuration
 
-|- deps.py             #Database dependencies
+|- deps.py                #Database dependencies
 
-|- auth.py             #JWT authentication logic
+|- auth.py                #JWT authentication logic
 
-|- requirements.txt    #Project dependencies
+|- requirements.txt       #Project dependencies
 
 |- README.md
 
@@ -82,7 +82,7 @@ applyflow-backend/
 
 1. Clone repository
 
-## git clone https://github.com/sukruthreddy2004/applyflow-backend.git
+## git clone: https://github.com/sukruthreddy2004/applyflow-backend.git
 - cd applyflow-backend
 
 2. Create virtual environment
@@ -136,7 +136,7 @@ Authorization: Bearer <token>
 
 # API ENDPOINTS
 
-##USERS
+## USERS
 
 - POST /users/register
 
@@ -150,13 +150,13 @@ GET /applications
 
 PATCH /applications/{application_id}
 
-##STATUS HISTORY
+## STATUS HISTORY
 
 GET /applications/{application_id}/history
 
 ---
 
-#PURPOSE
+# PURPOSE
 
 ApplyFlow demonstrates real backend engineering skills:
 
