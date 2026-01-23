@@ -1,11 +1,11 @@
-ApplyFlow
+#ApplyFlow
 
 ApplyFlow is a backend system for tracking job applications, their statuses, and full status history.
 It is built using real world backend practices with secure authentication and relational data modeling.
 
 ---
 
-TECH STACK
+#TECH STACK
 
 - Python
 - FastAPI
@@ -17,31 +17,31 @@ TECH STACK
 
 ---
 
-FEATURES
+#FEATURES
 
-USER AUTHENTICATION
+##USER AUTHENTICATION
 - User registration with hashed passwords
 - Secure login using JWT
 - Token authentication
 
-APPLICATION MANAGEMENT
+##APPLICATION MANAGEMENT
 - Create job applications
 - Associate applications with users
 - Store company, position, and current status
 
-STATUS TRACKING
+##STATUS TRACKING
 - Update application status
 - Automatically log every status change
 - Maintain complete history
 
-HISTORY LOG
+##HISTORY LOG
 - Old status -> new status
 - Timestamped records
 - Per application audit trail
 
 ---
 
-PROJECT STRUCTURE
+#PROJECT STRUCTURE
 
 applyflow-backend/
 |
@@ -56,7 +56,7 @@ applyflow-backend/
 
 ---
 
-SETUP INSTRUCTIONS
+#SETUP INSTRUCTIONS
 
 1. Clone repository
 
@@ -65,41 +65,41 @@ cd applyflow-backend
 
 2. Create virtual environment
 
-python -m venv venv
+- python -m venv venv
 
-Windows:
-venv\Scripts\activate
+##Windows:
+- venv\Scripts\activate
 
-macOS / Linux:
-source venv/bin/activate
+##macOS / Linux:
+- source venv/bin/activate
 
 3. Install dependencies
 
-pip install -r requirements.txt
+- pip install -r requirements.txt
 
 4. Configure database
 
 Update database.py with your PostgreSQL credentials:
 
-DATABASE_URL = postgresql+psycopg://username:password@localhost/applyflow
+- DATABASE_URL = postgresql+psycopg://username:password@localhost/applyflow
 
 5. Run server
 
-uvicorn main:app --reload
+- uvicorn main:app --reload
 
 Server will run at:
 http://127.0.0.1:8000
 
 ---
 
-API DOCUMENTATION
+##API DOCUMENTATION
 
 Swagger UI:
 http://127.0.0.1:8000/docs
 
 ---
 
-AUTHENTICATION FLOW
+#AUTHENTICATION FLOW
 
 1. Register user using /users/register
 2. Login using /users/login
@@ -110,23 +110,23 @@ Authorization: Bearer <token>
 
 ---
 
-API ENDPOINTS
+#API ENDPOINTS
 
-USERS
+##USERS
 POST /users/register
 POST /users/login
 
-APPLICATIONS
+##APPLICATIONS
 POST /applications
 GET /applications
 PATCH /applications/{application_id}
 
-STATUS HISTORY
+##STATUS HISTORY
 GET /applications/{application_id}/history
 
 ---
 
-PURPOSE
+#PURPOSE
 
 ApplyFlow demonstrates real backend engineering skills:
 - Secure authentication
@@ -138,17 +138,15 @@ ApplyFlow demonstrates real backend engineering skills:
 
 ---
 
-FUTURE IMPROVEMENTS
+#FUTURE IMPROVEMENTS
 
-- Role access control
-- Pagination and filtering
 - Email notifications
 - Docker support
 - Cloud deployment
 
 ---
 
-AUTHOR
+#AUTHOR
 
 Sai Sukruth Reddy
 Backend Developer (Python, FastAPI, PostgreSQL)
